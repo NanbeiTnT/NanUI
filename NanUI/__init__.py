@@ -1,4 +1,5 @@
 from .widgets import (
+    WEBENGINE_AVAILABLE,
     Card,
     CheckBox,
     ComboBox,
@@ -8,11 +9,14 @@ from .widgets import (
     PushButton,
     RadioButton,
     ScrollArea,
+    SlideSwitch,
     TextEdit,
+    WebView,
     Window,
 )
 
-__version__ = "0.2.2"
+__version__ = "0.4.0"
+
 __all__ = [
     "Label",
     "Window",
@@ -25,4 +29,7 @@ __all__ = [
     "ProgressBar",
     "Card",
     "ScrollArea",
+    "SlideSwitch",
+    "WebView",
+    "WEBENGINE_AVAILABLE",
 ]

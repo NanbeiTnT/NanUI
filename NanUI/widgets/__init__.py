@@ -7,7 +7,9 @@ from .progress_bar import ProgressBar
 from .pushButton import PushButton
 from .radio_button import RadioButton
 from .scroll_area import ScrollArea
+from .slide_switch import SlideSwitch
 from .text_edit import TextEdit
+from .web_view import WEBENGINE_AVAILABLE, WebView
 from .window import Window
 
 __all__ = [
@@ -22,4 +24,7 @@ __all__ = [
     "ProgressBar",
     "Card",
     "ScrollArea",
+    "SlideSwitch",
+    "WebView",
+    "WEBENGINE_AVAILABLE",
 ]

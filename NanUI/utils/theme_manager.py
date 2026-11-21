@@ -28,6 +28,14 @@ THEME_COLORS: Dict[str, Dict[str, str]] = {
         "placeholder": "#a0b0c0",  # 占位文字（QSS 的 ::placeholder 在 Qt 里无效）
         "shadow": "#a0a0a4",  # 投影色，等于 Qt.gray（注意 Qt.gray 是 #a0a0a4，
         #   #808080 是 Qt.darkGray，别搞混）
+        # ---- SlideSwitch（滑动开关）自绘配色 ----
+        "switch_on": "#4a90d9",  # 开启态轨道底色（对齐主按钮的蓝色系）
+        "switch_off": "#bdc3c7",  # 关闭态轨道底色
+        "switch_knob": "#ffffff",  # 手柄圆点颜色
+        "text": "#000000",  # 自绘文字色（对齐 QLabel 正文）
+        "text_disabled": "#a0a0a0",  # 禁用文字色
+        # ---- WebView（Web 引擎控件）页面底色 ----
+        "web_bg": "#ffffff",  # 页面背景色，浅色主题下用纯白
     },
     "dark": {
         # 中性石墨（Neutral Graphite）色板，与 dark_theme.qss 顶部的海拔梯度一一对应：
@@ -45,6 +53,14 @@ THEME_COLORS: Dict[str, Dict[str, str]] = {
         "placeholder": "#a2a2ab",  # 占位文字，对齐 text-secondary
         "shadow": "#000000",  # 投影色。深色下的投影要压得比所在面更暗才成立，
         #   用纯黑；浅色下用 Qt.gray。
+        # ---- SlideSwitch（滑动开关）自绘配色 ----
+        "switch_on": "#5aa2e8",  # 开启态轨道底色，深色下稍微提亮的主蓝
+        "switch_off": "#484852",  # L6，关闭态轨道底色
+        "switch_knob": "#e8e8ec",  # 手柄圆点颜色
+        "text": "#e8e8ec",  # 自绘文字色，对齐正文
+        "text_disabled": "#6b6b78",  # 禁用文字色
+        # ---- WebView（Web 引擎控件）页面底色 ----
+        "web_bg": "#1f1f24",  # L1，深色主题下避免刺眼白底
     },
 }
 
@@ -128,6 +144,10 @@ def apply_theme(app: QApplication, theme_name: str = "light") -> bool:
             effect, QGraphicsDropShadowEffect
         ):
             effect.setColor(QColor(get_color("shadow")))
+        # WebView 的页面底色同样不归 QSS 管，切主题时手动刷一遍
+        refresh = getattr(widget, "apply_theme_colors", None)
+        if callable(refresh):
+            refresh()
         widget.update()
 
     return True
