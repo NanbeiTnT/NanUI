@@ -34,6 +34,8 @@ THEME_COLORS: Dict[str, Dict[str, str]] = {
         "switch_knob": "#ffffff",  # 手柄圆点颜色
         "text": "#000000",  # 自绘文字色（对齐 QLabel 正文）
         "text_disabled": "#a0a0a0",  # 禁用文字色
+        # ---- WebView（Web 引擎控件）页面底色 ----
+        "web_bg": "#ffffff",  # 页面背景色，浅色主题下用纯白
     },
     "dark": {
         # 中性石墨（Neutral Graphite）色板，与 dark_theme.qss 顶部的海拔梯度一一对应：
@@ -57,6 +59,8 @@ THEME_COLORS: Dict[str, Dict[str, str]] = {
         "switch_knob": "#e8e8ec",  # 手柄圆点颜色
         "text": "#e8e8ec",  # 自绘文字色，对齐正文
         "text_disabled": "#6b6b78",  # 禁用文字色
+        # ---- WebView（Web 引擎控件）页面底色 ----
+        "web_bg": "#1f1f24",  # L1，深色主题下避免刺眼白底
     },
 }
 
@@ -140,6 +144,10 @@ def apply_theme(app: QApplication, theme_name: str = "light") -> bool:
             effect, QGraphicsDropShadowEffect
         ):
             effect.setColor(QColor(get_color("shadow")))
+        # WebView 的页面底色同样不归 QSS 管，切主题时手动刷一遍
+        refresh = getattr(widget, "apply_theme_colors", None)
+        if callable(refresh):
+            refresh()
         widget.update()
 
     return True
